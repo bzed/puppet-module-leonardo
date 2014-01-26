@@ -21,6 +21,8 @@ class leonardo(
   $install_dir = '/var/www/leonardo',
 ) {
 
+  include leonardo::web::apache
+
   package { 'python-pip':
     ensure => present,
   }
@@ -63,22 +65,6 @@ class leonardo(
     require => Vcsrepo[$install_dir]
   }
 
-  class { 'apache':
-    default_vhost => false,
-  }
-
-  include apache::mod::wsgi
-
-  apache::vhost { "metrics.$domain":
-    port                        => '80',
-    docroot                     => $install_dir,
-    wsgi_script_aliases         => { '/' => "${install_dir}/leonardo.wsgi" },
-    wsgi_daemon_process         => 'wsgi',
-    wsgi_daemon_process_options => {
-      threads => '5',
-      user    => 'leonardo'
-    },
-  }
 
 }
 
