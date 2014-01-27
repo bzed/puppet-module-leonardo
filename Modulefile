@@ -9,3 +9,4 @@ project_page 'https://github.com/pdxcat/puppet-module-leonardo'
 
 ## Add dependencies, if any:
 dependency 'puppetlabs/apache', '>= 0.10.0'
+dependency 'puppetlabs/vcsrepo', '>= 0.1.0'
