@@ -21,8 +21,6 @@ class leonardo(
   $install_dir = '/var/www/leonardo',
 ) {
 
-  include leonardo::web::apache
-
   package { 'python-pip':
     ensure => present,
   }
