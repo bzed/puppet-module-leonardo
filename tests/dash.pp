@@ -1,9 +1,11 @@
-file { '/tmp/graphs':
-  ensure => 'directory',
-}
+# Setup a working template directory for leonardo
 
 $dashboard_root = '/tmp/graphs'
-$dashboard_dir = "${dashboard_root}/${::hostname}"
+$dashboard_dir  = "${dashboard_root}/${::hostname}"
+
+file { $dasboard_root:
+  ensure => 'directory',
+}
 
 file { $dashboard_dir:
   ensure  => 'directory',
@@ -13,10 +15,10 @@ file { $dashboard_dir:
 leonardo::properties { 'common.yaml':
   target     => "${dashboard_root}/common.yaml",
   properties => { 'linewidth'       => '0.8',
-                    'area_alpha'      => '0.7',
-                    'timezone'        =>  'America/Los_Angeles',
-                    'hide_legend'     => 'false',
-                    'field_linewidth' => '2', },
+                  'area_alpha'      => '0.7',
+                  'timezone'        => 'America/Los_Angeles',
+                  'hide_legend'     => 'false',
+                  'field_linewidth' => '2', },
   require    => File[$dashboard_dir],
 }
 
@@ -43,5 +45,3 @@ leonardo::graph { 'cpu':
                 },
   require    => File[$dashboard_dir],
 }
-
-
