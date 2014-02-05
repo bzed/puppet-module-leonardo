@@ -1,15 +1,24 @@
-
 file { '/tmp/graphs':
   ensure => 'directory',
 }
 
-$dashboard_dir = "/tmp/graphs/$::hostname"
+$dashboard_root = '/tmp/graphs'
+$dashboard_dir = "${dashboard_root}/${::hostname}"
 
 file { $dashboard_dir:
   ensure  => 'directory',
   require => File['/tmp/graphs'],
 }
 
+leonardo::properties { 'common.yaml':
+  target     => "${dashboard_root}/common.yaml",
+  properties => { 'linewidth'       => '0.8',
+                    'area_alpha'      => '0.7',
+                    'timezone'        =>  'America/Los_Angeles',
+                    'hide_legend'     => 'false',
+                    'field_linewidth' => '2', },
+  require    => File[$dashboard_dir],
+}
 
 leonardo::dashboard { $::hostname:
   target             => "${dashboard_dir}/dash.yaml",
@@ -21,15 +30,15 @@ leonardo::dashboard { $::hostname:
 
 leonardo::graph { 'cpu':
   target     => "${dashboard_dir}/${name}.graph",
-  parameters => { 'title'       => 'Combined CPU Usage',
-                  'vtitle'      => 'percent',
-                  'area'        => 'stacked' },
+  parameters => { 'title'  => 'Combined CPU Usage',
+                  'vtitle' => 'percent',
+                  'area'   => 'stacked' },
   fields     => {
-                  'iowait' => { 'data' => "sumSeries(collectd.${::hostname}.cpu*.cpu-wait)",
+                  'iowait' => { 'data'        => "sumSeries(collectd.${::hostname}.cpu*.cpu-wait)",
                                 'cacti_style' => 'true',},
-                  'system' => { 'data' => "sumSeries(collectd.${::hostname}.cpu*.cpu-system)",
+                  'system' => { 'data'        => "sumSeries(collectd.${::hostname}.cpu*.cpu-system)",
                                 'cacti_style' => 'true',},
-                  'user' => { 'data' => "sumSeries(collectd.${::hostname}.cpu*.cpu-user)",
+                  'user'   => { 'data'        => "sumSeries(collectd.${::hostname}.cpu*.cpu-user)",
                                 'cacti_style' => 'true',},
                 },
   require    => File[$dashboard_dir],
