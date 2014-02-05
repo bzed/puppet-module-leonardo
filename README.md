@@ -23,6 +23,16 @@ class { 'leonardo':
 ### leonardo::dashboard
 
 ```puppet
+leonardo::dashboard { $::hostname:
+  target             => '/path/to/dash.yaml',
+  name               => $::hostname,
+  description        => 'System Metrics',
+  include_properties => ['common.yaml'],
+}
+```
+
+### leonardo::graph
+```puppet
 leonardo::graph { 'cpu':
   target     =>  '/path/to/cpu.graph',
   parameters => { 'title'  => 'Combined CPU Usage',
@@ -36,17 +46,6 @@ leonardo::graph { 'cpu':
                   'user'   => { 'data'        => "sumSeries(collectd.${::hostname}.cpu*.cpu-user)",
                                 'cacti_style' => 'true',},
                 },
-```
-
-### leonardo::graph
-
-```puppet
-leonardo::dashboard { $::hostname:
-  target             => '/path/to/dash.yaml',
-  name               => $::hostname,
-  description        => 'System Metrics',
-  include_properties => ['common.yaml'],
-}
 ```
 
 ### leonardo::properties
