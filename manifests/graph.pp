@@ -17,7 +17,7 @@ define leonardo::graph (
     each($items) |$item_key, $item_value| {
       yaml_setting { "${name}-fields-${key}-${item_key}":
         target => $target,
-        key    => "${key}/${item_key}",
+        key    => "fields/${key}/${item_key}",
         value  => $item_value,
       }
     }
