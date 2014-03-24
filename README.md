@@ -61,9 +61,7 @@ leonardo::properties { 'common.yaml':
 }
 ```
 
+Exported graphs
+---------------
 
-Known Issues
-------------
-
-* The module currently has an issue with Apache/WSGI unable to find the leonado/config.yaml, the workaround is to hardcode the absolute path in leonardo/config.py
-
+This modules supports exporting the graph resources and collecting them on the server running leonardo. See `tests/exported.pp` and `tests/collector.pp` for examples.
