@@ -13,12 +13,12 @@ define leonardo::dashboard (
     key     => 'name',
     value   => $name,
   }->
-  yaml_setting { "dashboard-${description}":
+  yaml_setting { "dashboard-${name}-description":
     target  => $target,
     key     => 'description',
     value   => $description,
   }->
-  yaml_setting { "dashboard-properties-${name}":
+  yaml_setting { "dashboard-${name}-properties":
     target  => $target,
     key     => 'include_properties',
     value   => $include_properties,
