@@ -1,9 +1,9 @@
 # Example configs for using exported resources
 # look at collector.pp to collect them.
 
-  $dashboard_root = '/tmp/graphs',
-  $collectd_name  = regsubst($::fqdn, '\.', '_', 'G'),
-  $dashboard_dir  = "${dashboard_root}/${::hostname}",
+  $dashboard_root = '/tmp/graphs'
+  $collectd_name  = regsubst($::fqdn, '\.', '_', 'G')
+  $dashboard_dir  = "${dashboard_root}/${::hostname}"
 
   # Each host needs a directory to hold the graph files
   @@file { $dashboard_dir:
