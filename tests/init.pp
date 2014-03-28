@@ -8,10 +8,10 @@
 #
 # Learn more about module testing here: http://docs.puppetlabs.com/guides/tests_smoke.html
 #
-$install_dir = '/var/www/leonardo',
+$install_dir = '/var/www/leonardo'
 
 class { 'leonardo':
-  graphite_url => 'graphite.example.com',
+  graphite_url => 'https://graphite.example.org',
   template_dir => '/var/www/leonardo/graphs',
   install_dir  => $install_dir,
 }

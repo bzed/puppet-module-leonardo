@@ -1,15 +1,15 @@
 # Setup a working template directory for leonardo
 
-$dashboard_root = '/tmp/graphs'
+$dashboard_root = '/var/www/leonardo/graphs'
 $dashboard_dir  = "${dashboard_root}/${::hostname}"
 
-file { $dasboard_root:
+file { $dashboard_root:
   ensure => 'directory',
 }
 
 file { $dashboard_dir:
   ensure  => 'directory',
-  require => File['/tmp/graphs'],
+  require => File[$dashboard_root],
 }
 
 leonardo::properties { 'common.yaml':
